@@ -2,47 +2,41 @@
 
 /**
  * Extract season from given date and expose the enemy scout!
- * 
+ *
  * @param {Date | FakeDate} date real or fake date
  * @returns {String} time of the year
- * 
+ *
  * @example
- * 
+ *
  * getSeason(new Date(2020, 02, 31)) => 'spring'
- * 
+ *
  */
-function getSeason( date ) {
-  if (!!date && isNaN(Date.parse(date))) throw new Error('Invalid date!')
+function getSeason(date) {
+	if (!date) return 'Unable to determine the time of year!'
+	if (date.hasOwnProperty('getMonth')) throw new Error('Invalid date!')
 
-  let message = 'Unable to determine the time of year!'
-
-  if (arguments.length === 1) {
-    let month = date.getUTCMonth();
-
-    switch (month) {
-      case 11:
-      case 0:
-      case 1:
-        message = 'winter';
-        break;
-      case 2:
-      case 3:
-      case 4:
-        message = 'spring';
-        break;
-      case 5:
-      case 6:
-      case 7:
-        message = 'summer';
-        break;
-      default:
-        message = 'autumn';
-    }
-  }
-
-  return message;
+	try {
+		switch (date.getMonth()) {
+			case 11:
+			case 0:
+			case 1:
+				return 'winter'
+			case 2:
+			case 3:
+			case 4:
+				return 'spring'
+			case 5:
+			case 6:
+			case 7:
+				return 'summer'
+			default:
+				return 'autumn'
+		}
+	} catch {
+		throw new Error('Invalid date!')
+	}
 }
 
 module.exports = {
-  getSeason
+	getSeason
 };
