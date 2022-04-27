@@ -25,7 +25,11 @@ function transform(arr) {
 	for (let i = 0; i < arr.length; i++) {
 		switch (arr[i]) {
 			case '--discard-next':
-				i += 2
+				if (arr[i] === '--discard-next') {
+					if (i + 2 < arr.length) {
+						i += 2
+					}
+				}
 				break
 			case '--discard-prev':
 				if (i > 0) {
@@ -50,7 +54,7 @@ function transform(arr) {
 	return res
 }
 
-transform([ 1, 2, 3, [undefined], 4, 5 ])
+transform([1, 2, 3, [undefined], 4, 5])
 
 module.exports = {
 	transform
